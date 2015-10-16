@@ -78,7 +78,7 @@ void child_process_term_output(struct aug_child *child) {
 
 	while( (buflen = vterm_output_get_buffer_current(child->term->vt) ) > 0) {
 		buflen = (buflen < AUG_CHILD_BUF_SIZE)? buflen : AUG_CHILD_BUF_SIZE;
-		buflen = vterm_output_bufferread(child->term->vt, child->buf, buflen);
+		buflen = vterm_output_read(child->term->vt, child->buf, buflen);
 		write_n_or_exit(child->term->master, child->buf, buflen);
 	}
 
@@ -128,7 +128,7 @@ static int process_master_output(struct aug_child *child) {
 #ifdef AUG_DEBUG_IO
 		AUG_TIMER_START();
 #endif
-		vterm_push_bytes(child->term->vt, child->buf, total_read);
+		vterm_push_output_bytes(child->term->vt, child->buf, total_read);
 #ifdef AUG_DEBUG_IO
 		AUG_TIMER_IF_EXCEEDED(0, AUG_DEBUG_IO_TIME_MIN) {
 			AUG_TIMER_DISPLAY(stderr, "vterm_push_bytes took %d,%d secs\n");

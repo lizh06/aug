@@ -26,7 +26,6 @@ static const VTermScreenCallbacks CB_SCREEN_NULL = {
 	.moverect = NULL,
 	.movecursor = NULL,
 	.settermprop = NULL,
-	.setmousefunc = NULL,
 	.bell = NULL,
 	.resize = NULL,
 	.sb_pushline = NULL,
@@ -42,7 +41,7 @@ void term_init(struct aug_term *term, int rows, int cols) {
 	state = vterm_obtain_state(term->vt);
 	/* have to cast default_color because the api isnt const correct */
 	vterm_state_set_default_colors(state, &VTERM_DEFAULT_COLOR, &VTERM_DEFAULT_COLOR);	
-	vterm_parser_set_utf8(term->vt, 1);
+	vterm_set_utf8(term->vt, 1);
 
 	vts = vterm_obtain_screen(term->vt);
 	vterm_screen_enable_altscreen(vts, 1);
@@ -101,7 +100,7 @@ int term_push_char(const struct aug_term *term, uint32_t ch) {
 	if(term_can_push_chars(term) < 1)
 		return -1;
 
-	vterm_input_push_char(term->vt, VTERM_MOD_NONE, ch);
+	vterm_keyboard_unichar(term->vt, ch, VTERM_MOD_NONE);
 	return 0;
 }
 

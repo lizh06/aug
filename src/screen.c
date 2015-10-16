@@ -47,7 +47,6 @@ static const VTermScreenCallbacks CB_SCREEN = {
 	.movecursor = screen_movecursor,
 	.bell = screen_bell,
 	.settermprop = screen_settermprop,
-	.setmousefunc = NULL,
 	.resize = NULL,
 	.sb_pushline = NULL, /*screen_pushline,*/
 	.sb_popline = NULL /*screen_popline*/

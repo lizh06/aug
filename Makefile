@@ -34,7 +34,7 @@ else
 endif
 LIB 			= -pthread -ldl -lutil -lpanel $(LIBNCURSES) $(LIBVTERM) $(LIBCCAN)
 
-INCLUDES		= -iquote"./libvterm/include" -I$(CCAN_DIR)
+INCLUDES		= -iquote"./libvterm/include" -I$(CCAN_DIR) -I /usr/include/ncursesw
 INCLUDES		+= -iquote"./src" -iquote"./include"
 
 OPTIMIZE		= -ggdb #-O3
